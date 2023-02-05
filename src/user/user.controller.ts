@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { updateUser } from './dto/updateUser.DTO';
 import { UserDTO } from './dto/user.DTO';
@@ -29,5 +37,9 @@ export class UserController {
     @Body() dataUser: updateUser,
   ): Promise<UserEntities> {
     return await this.userservice.updateUser(id, dataUser);
+  }
+  @Delete('delete/:id')
+  async deleteUser(@Param('id') id: string): Promise<UserEntities> {
+    return await this.userservice.deleteUser(id);
   }
 }

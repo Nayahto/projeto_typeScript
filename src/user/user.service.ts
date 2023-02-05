@@ -35,4 +35,7 @@ export class UserService {
       data: dados,
     });
   }
+  async deleteUser(id: string): Promise<UserEntities> {
+    return this.prismaService.userTable.delete({ where: { id: id } });
+  }
 }
