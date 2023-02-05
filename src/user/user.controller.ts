@@ -17,21 +17,22 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userservice: UserService) {}
   @Get()
-  @ApiOperation({ summary: 'encontrar todos os usuarios' })
+  @ApiOperation({ summary: 'encontrar todos os usuarios (getAll)' })
   allUsers() {
     return this.userservice.allUsers();
   }
   @Get(':id')
-  @ApiOperation({ summary: 'encontrar usuario por id' })
+  @ApiOperation({ summary: 'rota para encontrar usuario por id (getById)' })
   async allUsersById(@Param('id') id: string): Promise<UserEntities> {
     return await this.userservice.allUsersById(id);
   }
   @Post('new')
-  @ApiOperation({ summary: 'criação de usuario' })
+  @ApiOperation({ summary: 'rota de criação de usuario (Create)' })
   async createUser(@Body() userData: UserDTO) {
     return await this.userservice.createUser(userData);
   }
   @Patch('update/:id')
+  @ApiOperation({ summary: 'rota de atualização  de usuario (update)' })
   async updateUser(
     @Param('id') id: string,
     @Body() dataUser: updateUser,
@@ -39,6 +40,7 @@ export class UserController {
     return await this.userservice.updateUser(id, dataUser);
   }
   @Delete('delete/:id')
+  @ApiOperation({ summary: 'rota de deleção de usuario (delete)' })
   async deleteUser(@Param('id') id: string): Promise<UserEntities> {
     return await this.userservice.deleteUser(id);
   }

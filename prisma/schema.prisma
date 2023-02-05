@@ -13,7 +13,19 @@ datasource db {
 model UserTable {
   id       String @id @default(uuid())
   CPF      String @unique
+  Password String
   username String
   email    String
   role     String
+}
+
+model GameTable {
+  id                 String @id @default(uuid())
+  Title              String @unique
+  CoverImageUrl      String
+  Description        String
+  Year               Int
+  ImdbScore          Float
+  TrailerYouTubeUrl  String
+  GameplayYouTubeUrl String
 }
