@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UserDTO } from './dto/user.DTO';
 import { UserEntities } from './entities/user.entitie';
 
 @Injectable()
@@ -21,5 +22,9 @@ export class UserService {
       );
     }
     return data;
+  }
+  async createUser(dto: UserDTO): Promise<UserEntities> {
+    const dataUser: UserEntities = { ...dto };
+    return await this.prismaService.userTable.create({ data: dataUser });
   }
 }

@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
+import { UserDTO } from './dto/user.DTO';
 import { UserEntities } from './entities/user.entitie';
 import { UserService } from './user.service';
 
@@ -15,5 +16,10 @@ export class UserController {
   @ApiOperation({ summary: 'encontrar usuario por id' })
   async allUsersById(@Param('id') id: string): Promise<UserEntities> {
     return await this.userservice.allUsersById(id);
+  }
+  @Post('new')
+  @ApiOperation({ summary: 'criação de usuario' })
+  async createUser(@Body() userData: UserDTO) {
+    return await this.userservice.createUser(userData);
   }
 }
