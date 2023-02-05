@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
+import { updateUser } from './dto/updateUser.DTO';
 import { UserDTO } from './dto/user.DTO';
 import { UserEntities } from './entities/user.entitie';
 import { UserService } from './user.service';
@@ -21,5 +22,12 @@ export class UserController {
   @ApiOperation({ summary: 'criação de usuario' })
   async createUser(@Body() userData: UserDTO) {
     return await this.userservice.createUser(userData);
+  }
+  @Patch('update/:id')
+  async updateUser(
+    @Param('id') id: string,
+    @Body() dataUser: updateUser,
+  ): Promise<UserEntities> {
+    return await this.userservice.updateUser(id, dataUser);
   }
 }
