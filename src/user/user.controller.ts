@@ -7,41 +7,46 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { updateUser } from './dto/updateUser.DTO';
 import { UserDTO } from './dto/user.DTO';
-import { UserEntities } from './entities/user.entitie';
+import { UserEntitie } from './entities/user.entitie';
 import { UserService } from './user.service';
 
+@ApiTags('User')
 @Controller('users')
 export class UserController {
   constructor(private readonly userservice: UserService) {}
+
+  @Post()
+  @ApiOperation({ summary: 'rota de criação de usuario (Create)' })
+  async create(@Body() userData: UserDTO) {
+    return await this.userservice.create(userData);
+  }
+
   @Get()
   @ApiOperation({ summary: 'encontrar todos os usuarios (getAll)' })
-  allUsers() {
-    return this.userservice.allUsers();
+  finAll() {
+    return this.userservice.findAll();
   }
+
   @Get(':id')
   @ApiOperation({ summary: 'rota para encontrar usuario por id (getById)' })
-  async allUsersById(@Param('id') id: string): Promise<UserEntities> {
-    return await this.userservice.allUsersById(id);
+  async findOne(@Param('id') id: string): Promise<UserEntitie> {
+    return await this.userservice.findOne(id);
   }
-  @Post('new')
-  @ApiOperation({ summary: 'rota de criação de usuario (Create)' })
-  async createUser(@Body() userData: UserDTO) {
-    return await this.userservice.createUser(userData);
-  }
-  @Patch('update/:id')
+
+  @Patch(':id')
   @ApiOperation({ summary: 'rota de atualização  de usuario (update)' })
-  async updateUser(
+  async update(
     @Param('id') id: string,
     @Body() dataUser: updateUser,
-  ): Promise<UserEntities> {
-    return await this.userservice.updateUser(id, dataUser);
+  ): Promise<UserEntitie> {
+    return await this.userservice.update(id, dataUser);
   }
-  @Delete('delete/:id')
-  @ApiOperation({ summary: 'rota de deleção de usuario (delete)' })
-  async deleteUser(@Param('id') id: string): Promise<UserEntities> {
-    return await this.userservice.deleteUser(id);
+  @Delete(':id')
+  @ApiOperation({ summary: 'rota de remoção de usuario (delete)' })
+  async remove(@Param('id') id: string): Promise<UserEntitie> {
+    return await this.userservice.remove(id);
   }
 }

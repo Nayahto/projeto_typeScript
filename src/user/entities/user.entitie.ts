@@ -1,4 +1,4 @@
-export class UserEntities {
+export class UserEntitie {
   id?: string;
   CPF: string;
   Password: string;

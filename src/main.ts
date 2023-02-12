@@ -9,7 +9,11 @@ async function bootstrap() {
     .setTitle('Projeto nestjs')
     .setDescription('The nestJs API description')
     .setVersion('1.0')
-    .addTag('nest')
+    .addTag('User')
+    .addTag('Profile')
+    .addTag('Game')
+    .addTag('Genre')
+    .addTag('Game Genre Relation')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

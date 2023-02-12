@@ -6,17 +6,24 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { updateUser } from './dto/updateUser.DTO';
 import { UserDTO } from './dto/user.DTO';
-import { UserEntities } from './entities/user.entitie';
+import { UserEntitie } from './entities/user.entitie';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  allUsers() {
+  async create(dto: UserDTO): Promise<UserEntitie> {
+    const dataUser: UserEntitie = { ...dto };
+    return await this.prismaService.userTable
+      .create({ data: dataUser })
+      .catch(this.getError);
+  }
+
+  findAll() {
     return this.prismaService.userTable.findMany();
   }
 
-  async allUsersById(id: string): Promise<UserEntities> {
+  async findOne(id: string): Promise<UserEntitie> {
     const data = await this.prismaService.userTable.findUnique({
       where: { id: id },
     });
@@ -28,14 +35,8 @@ export class UserService {
     }
     return data;
   }
-  async createUser(dto: UserDTO): Promise<UserEntities> {
-    const dataUser: UserEntities = { ...dto };
-    return await this.prismaService.userTable
-      .create({ data: dataUser })
-      .catch(this.getError);
-  }
-  async updateUser(id: string, body: updateUser): Promise<UserEntities> {
-    const dados: Partial<UserEntities> = { ...body };
+  async update(id: string, body: updateUser): Promise<UserEntitie> {
+    const dados: Partial<UserEntitie> = { ...body };
     return await this.prismaService.userTable
       .update({
         where: { id: id },
@@ -43,7 +44,7 @@ export class UserService {
       })
       .catch(this.getError);
   }
-  async deleteUser(id: string): Promise<UserEntities> {
+  async remove(id: string): Promise<UserEntitie> {
     return this.prismaService.userTable.delete({ where: { id: id } });
   }
 
