@@ -1,5 +1,10 @@
+import { IsNotEmpty, IsString } from 'class-validator';
+
 export class CreateProfileDto {
-  id?: string;
+  @IsNotEmpty()
+  @IsString()
   Title: string;
+  @IsNotEmpty()
+  @IsString()
   ImageURL: string;
 }

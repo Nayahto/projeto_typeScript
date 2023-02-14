@@ -1,4 +1,7 @@
+import { IsNotEmpty, IsString } from 'class-validator';
+
 export class CreateGenreDto {
-  id?: string;
+  @IsNotEmpty()
+  @IsString()
   name: string;
 }
