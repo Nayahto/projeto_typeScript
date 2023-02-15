@@ -14,7 +14,7 @@ model UserTable {
   id                String              @id @default(uuid())
   CPF               String              @unique
   Password          String
-  username          String
+  userName          String
   email             String
   role              String
   gameGenreRelation gameGenreRelation[]

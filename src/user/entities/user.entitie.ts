@@ -2,7 +2,7 @@ export class UserEntitie {
   id?: string;
   CPF: string;
   Password: string;
-  username: string;
+  userName: string;
   email: string;
   role: string;
 }

@@ -31,7 +31,7 @@ export class GameGenreService {
         id: true,
         game: true,
         genre: { select: { name: true } },
-        userId: { select: { username: true } },
+        userId: { select: { userName: true } },
       },
     });
   }
@@ -41,7 +41,7 @@ export class GameGenreService {
       where: { id: id },
       select: {
         game: { select: { Title: true, Description: true } },
-        userId: { select: { username: true } },
+        userId: { select: { userName: true } },
       },
     });
   }
