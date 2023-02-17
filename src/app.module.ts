@@ -8,9 +8,10 @@ import { ProfileModule } from './profile/profile.module';
 import { GenreModule } from './genre/genre.module';
 import { GameGenreModule } from './game-genre/game-genre.module';
 import { AuthModule } from './auth/auth.module';
+import { FavoriteModule } from './favorite/favorite.module';
 
 @Module({
-  imports: [UserModule, PrismaModule, GameModule, ProfileModule, GenreModule, GameGenreModule, AuthModule],
+  imports: [UserModule, PrismaModule, GameModule, ProfileModule, GenreModule, GameGenreModule, AuthModule, FavoriteModule],
   controllers: [AppController],
   providers: [AppService],
 })

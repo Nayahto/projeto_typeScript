@@ -10,7 +10,7 @@ export class CreateGameGenreDto {
   @IsNotEmpty()
   @IsArray()
   gameId: string[];
-  @ApiProperty({ example: 'deed7ee3-5b5c-43d0-bda3-e062cde4e0c6' })
+  @ApiProperty({ example: ['deed7ee3-5b5c-43d0-bda3-e062cde4e0c6'] })
   @IsNotEmpty()
   @IsArray()
   genreId: string[];
