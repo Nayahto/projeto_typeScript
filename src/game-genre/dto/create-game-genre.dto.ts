@@ -6,7 +6,7 @@ export class CreateGameGenreDto {
   @IsNotEmpty()
   @IsString()
   userId: string;
-  @ApiProperty({ example: '8be12888-6352-4684-bcd0-b74f3c1c7d62' })
+  @ApiProperty({ example: ['8be12888-6352-4684-bcd0-b74f3c1c7d62'] })
   @IsNotEmpty()
   @IsArray()
   gameId: string[];

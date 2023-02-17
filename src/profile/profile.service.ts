@@ -3,16 +3,20 @@ import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { Profile } from './entities/profile.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ProfileService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(createProfileDto: CreateProfileDto): Promise<Profile> {
-    const dataProfile: Profile = { ...createProfileDto };
-    return await this.prismaService.profile
-      .create({ data: dataProfile })
-      .catch(this.getError);
+  async create(createProfileDto: CreateProfileDto) {
+    const dataProfile: Prisma.ProfileCreateInput = {
+      user: { connect: { id: createProfileDto.userId } },
+      Title: createProfileDto.Title,
+      ImageURL: createProfileDto.ImageURL,
+    };
+
+    return await this.prismaService.profile.create({ data: dataProfile });
   }
 
   findAll() {
@@ -28,12 +32,10 @@ export class ProfileService {
     updateProfileDto: UpdateProfileDto,
   ): Promise<Profile> {
     const dataProfile: Partial<Profile> = { ...updateProfileDto };
-    return await this.prismaService.profile
-      .update({
-        where: { id: id },
-        data: dataProfile,
-      })
-      .catch(this.getError);
+    return await this.prismaService.profile.update({
+      where: { id: id },
+      data: dataProfile,
+    });
   }
 
   remove(id: string) {
