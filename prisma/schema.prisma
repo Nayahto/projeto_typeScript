@@ -31,12 +31,15 @@ model GameTable {
   GameplayYouTubeUrl  String
   gameGenreRelation   gameGenreRelation? @relation(fields: [gameGenreRelationId], references: [id])
   gameGenreRelationId String?
+  favorite            favorite?          @relation(fields: [favoriteFavId], references: [favId])
+  favoriteFavId       String?
 }
 
 model Profile {
-  id       String @id @default(uuid())
+  id       String     @id @default(uuid())
   Title    String
   ImageURL String
+  favorite favorite[]
 }
 
 model Genre {
@@ -52,4 +55,11 @@ model gameGenreRelation {
   userRelation String
   game         GameTable[]
   genre        Genre[]
+}
+
+model favorite {
+  favId       String      @id @default(uuid())
+  profileId   Profile     @relation(fields: [proRelation], references: [id])
+  proRelation String
+  game        GameTable[]
 }
